@@ -12,6 +12,7 @@ public class Register {
     String user;
     String password;
     public Register() throws SQLException {
+        utils.flushConsole();
         utils.print("--------REGISTRO--------");
         utils.print("Introduzca su usuario");
         user = utils.getUserInput();

@@ -12,4 +12,8 @@ public class Utilities {
         System.out.println(text);
     }
 
+    public void flushConsole(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }
