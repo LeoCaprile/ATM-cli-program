@@ -1,12 +1,12 @@
-package Menu;
+package UserMenu;
 
 import Utilities.Utilities;
 
-public class Menu {
+public class UserMenu {
 
     Utilities utils = new Utilities();
     String optionSelected;
-    public Menu (){
+    public UserMenu(){
         utils.print("Bienvenido al sistema bancario que desea hacer?");
         utils.print("1. Depositar");
         utils.print("2. Retirar");

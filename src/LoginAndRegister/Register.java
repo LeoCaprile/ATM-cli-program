@@ -1,13 +1,13 @@
 package LoginAndRegister;
 
-import Model.UserModel;
+import Services.UserServices;
 import Utilities.Utilities;
 
 import java.sql.SQLException;
 
 public class Register {
     Utilities utils = new Utilities();
-    UserModel userModel = new UserModel();
+    UserServices userModel = new UserServices();
 
     String user;
     String password;

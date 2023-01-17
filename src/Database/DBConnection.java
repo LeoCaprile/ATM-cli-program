@@ -1,4 +1,5 @@
 package Database;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +15,18 @@ public class DBConnection {
         String connectionString = "jdbc:postgresql://localhost:5433/postgres";
 
         connection = DriverManager.getConnection(connectionString, user, password);
+
+        String createDBTables = "CREATE TABLE IF NOT EXISTS users (" +
+                "userId SERIAL PRIMARY KEY," +
+                "username VARCHAR (50)," +
+                "password VARCHAR (50)," +
+                "money INT," +
+                "created_on TIMESTAMP NOT NULL," +
+                "last_transaction TIMESTAMP)";
+
+        Statement stmt = connection.createStatement();
+        stmt.execute(createDBTables);
+
     }
     private static boolean isNumeric(String str){
         return str != null && str.matches("[0-9.]+");
@@ -50,17 +63,45 @@ public class DBConnection {
 
     }
 
-    public ResultSet SQLQuery(String SQLQuery) throws SQLException {
-        try(PreparedStatement result = connection.prepareStatement(SQLQuery)){
-            return result.executeQuery();
-        }
+    public DBConnection select(List<String> columns) {
+        statement = statement.concat("SELECT ");
+        columns.forEach(column -> {
+                    if(columns.get(columns.size() - 1).equals(column)){
+                        statement = statement.concat(column).concat(" ");
+                    }else {
+                        statement = statement.concat(column).concat(", ");
+                    }
+                }
+        );
+        return this;
     }
 
+    public DBConnection from(String table) {
+        statement = statement.concat("FROM ").concat(table);
+        return this;
+    }
+
+    public DBConnection where(String condition) {
+        statement = statement.concat(" WHERE ").concat(condition);
+        return this;
+    }
+
+    public Statement executeQuery() {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeQuery(this.statement);
+            statement = "";
+            return stmt;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void executeUpdate() throws SQLException {
             try (Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(this.statement);
             }
+            statement = "";
     }
 }
 
