@@ -18,25 +18,24 @@ public class Login {
     public Login() throws SQLException {
 
         while(!isLogged){
-            utils.print("Introduzca su usuario");
+            utils.print("Enter your username");
             user = utils.getUserInput();
-            utils.print("Introduzca su contraseña");
+            utils.print("Enter your password");
             password = utils.getUserInput();
 
             findedUser = UserServices.GetUser(user);
 
             if(findedUser.username == null){
-                utils.print("La contraseña o el nombre de usuario es incorrecto");
+                utils.print("The username or password is incorrect, try again");
                 continue;
             }
 
             if(findedUser.username.equals(user) && findedUser.password.equals(password)){
-                utils.print("Ha ingresado correctamente");
                 isLogged = true;
                 new UserMenu(findedUser);
 
             }else {
-                utils.print("La contraseña o el nombre de usuario es incorrecto");
+                utils.print("The username or password is incorrect, try again");
             }
         }
 

@@ -12,17 +12,17 @@ public class Menu {
 
     public Menu() throws SQLException {
         utils.flushConsole();
-        utils.print("Hola bienvenido, Eliga una opción para continuar");
-        utils.print("1. Ingresar");
-        utils.print("2. Registrarse");
+        utils.print("Hi! Welcome to the banking system, select an option.");
+        utils.print("1. Login");
+        utils.print("2. SignUp");
         
         selectedOption = utils.getUserInput();
 
         switch (selectedOption) {
             case "1" -> new Login();
-            case "2" -> new Register();
+            case "2" -> new SignUp();
             default -> {
-                utils.print("Eliga una opción valida.");
+                utils.print("Select a valid option.");
                 new Menu();
             }
         }

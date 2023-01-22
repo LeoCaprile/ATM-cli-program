@@ -5,13 +5,13 @@ import Utilities.Utilities;
 
 import java.sql.SQLException;
 
-public class Register {
+public class SignUp {
     Utilities utils = new Utilities();
     UserServices userModel = new UserServices();
 
     String user;
     String password;
-    public Register() throws SQLException {
+    public SignUp() throws SQLException {
         utils.flushConsole();
         utils.print("--------REGISTRO--------");
         utils.print("Introduzca su usuario");

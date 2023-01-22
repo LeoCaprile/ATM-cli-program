@@ -12,7 +12,7 @@ public class UserMenu {
     public UserMenu(User user){
         loggedUser = user;
         while(!logout) {
-            utils.print("WELCOME TO THE BANKING SYSTEM, SELECT AN OPERATION?");
+            utils.print("WELCOME TO THE BANKING SYSTEM, SELECT AN OPERATION");
             utils.print("1. DEPOSIT");
             utils.print("2. WITHDRAW");
             utils.print("3. CHECK BALANCE");
@@ -39,7 +39,7 @@ public class UserMenu {
                                 (this.loggedUser.lastTransaction != null
                                         ? loggedUser.lastTransaction.toString()
                                         : "HAVEN'T DID ANY TRANSACTION"));
-                        utils.print("------------Press ENTER to go back--------------");
+                        utils.print("--------------Press ENTER to go back--------------");
                         utils.getUserInput();
                     }
                 }

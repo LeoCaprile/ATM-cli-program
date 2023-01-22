@@ -88,12 +88,17 @@ public class DBConnection {
     }
 
     public DBConnection set(Map<String,String> columnsAndValuesToUpdate){
+        final String[] setValues = {""};
+
         columnsAndValuesToUpdate
-            .forEach((column,valueToUpdate) -> statement = statement
+            .forEach((column,valueToUpdate) -> setValues[0] = setValues[0]
                     .concat(column)
                     .concat("=")
                     .concat(valueToUpdate)
-                    .concat(", "));
+                    .concat(" "));
+
+        setValues[0] = setValues[0].replace(" ", ",");
+        statement = statement.concat(setValues[0]);
         return this;
     }
 
