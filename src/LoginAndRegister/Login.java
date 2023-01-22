@@ -33,7 +33,7 @@ public class Login {
             if(findedUser.username.equals(user) && findedUser.password.equals(password)){
                 utils.print("Ha ingresado correctamente");
                 isLogged = true;
-                new UserMenu();
+                new UserMenu(findedUser);
 
             }else {
                 utils.print("La contraseña o el nombre de usuario es incorrecto");

@@ -22,17 +22,25 @@ public class UserServices {
     }
 
     public User GetUser(String userName) throws SQLException{
-        List<String> columnsToSelect = Arrays.asList("username","password");
+        List<String> columnsToSelect = Arrays.asList("userId","username","password", "money", "created_on", "last_transaction");
        try (Statement stmt = DB.select(columnsToSelect).from("users").where("username = '"+userName+"'").executeQuery()){
           ResultSet rs = stmt.getResultSet();
           User user = new User();
           while(rs.next()){
-              user.username = rs.getString(1);
-              user.password = rs.getString(2);
+              user.userId = rs.getInt(1);
+              user.username = rs.getString(2);
+              user.password = rs.getString(3);
+              user.money = rs.getInt(4);
+              user.createdOn = rs.getDate(5);
+              user.lastTransaction = rs.getDate(6);
+
           }
           return user;
        }
 
     }
 
+    public void UpdateUserById(Integer userId) {
+        DB
+    }
 }

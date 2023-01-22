@@ -4,20 +4,23 @@ import java.util.Date;
 
 public class User {
 
+    public Integer userId;
     public String username;
     public String password;
-    Integer money;
-    Date createdOn;
+    public Integer money;
+    public Date createdOn;
 
-    private void Depositar () {
+    public Date lastTransaction = null;
 
-    }
-
-    private void Retirar () {
+    public void Depositar () {
 
     }
 
-    private void Consultar () {
+    public void Retirar () {
+
+    }
+
+    public void Consultar () {
 
     }
 

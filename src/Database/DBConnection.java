@@ -4,6 +4,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
+import java.util.Map;
 
 public class DBConnection {
 
@@ -78,6 +79,21 @@ public class DBConnection {
 
     public DBConnection from(String table) {
         statement = statement.concat("FROM ").concat(table);
+        return this;
+    }
+
+    public DBConnection update(String table){
+        this.statement = this.statement.concat("UPDATE ").concat(table).concat(" ");
+        return this;
+    }
+
+    public DBConnection set(Map<String,String> columnsAndValuesToUpdate){
+        columnsAndValuesToUpdate
+            .forEach((column,valueToUpdate) -> statement = statement
+                    .concat(column)
+                    .concat("=")
+                    .concat(valueToUpdate)
+                    .concat(", "));
         return this;
     }
 
