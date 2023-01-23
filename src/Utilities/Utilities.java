@@ -1,5 +1,6 @@
 package Utilities;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Utilities {
@@ -12,8 +13,5 @@ public class Utilities {
         System.out.println(text);
     }
 
-    public void flushConsole(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+
 }

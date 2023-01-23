@@ -12,7 +12,6 @@ public class SignUp {
     String user;
     String password;
     public SignUp() throws SQLException {
-        utils.flushConsole();
         utils.print("--------REGISTRO--------");
         utils.print("Introduzca su usuario");
         user = utils.getUserInput();

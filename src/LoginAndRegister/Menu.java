@@ -11,7 +11,6 @@ public class Menu {
 
 
     public Menu() throws SQLException {
-        utils.flushConsole();
         utils.print("Hi! Welcome to the banking system, select an option.");
         utils.print("1. Login");
         utils.print("2. SignUp");

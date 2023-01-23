@@ -1,15 +1,19 @@
 package UserMenu;
 
+import Services.UserServices;
 import User.User;
 import Utilities.Utilities;
+
+import java.sql.SQLException;
 
 public class UserMenu {
     User loggedUser;
     Utilities utils = new Utilities();
     String optionSelected;
 
+    UserServices userServices = new UserServices();
     Boolean logout = false;
-    public UserMenu(User user){
+    public UserMenu(User user) throws SQLException {
         loggedUser = user;
         while(!logout) {
             utils.print("WELCOME TO THE BANKING SYSTEM, SELECT AN OPERATION");
@@ -23,7 +27,10 @@ public class UserMenu {
 
             switch (optionSelected) {
                 case "1" -> {
-                    utils.print("a");
+                    utils.print("ENTER THE QUANTITY OF MONEY YOU WANT TO DEPOSIT");
+                    String money = utils.getUserInput();
+                    userServices.UpdateUserMoneyById(user.userId,money);
+                    utils.print("TRANSACTION CORRECT");
                 }
                 case "2" -> {
                     utils.print("b");

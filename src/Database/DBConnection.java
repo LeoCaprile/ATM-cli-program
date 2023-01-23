@@ -3,6 +3,7 @@ import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,13 @@ public class DBConnection {
         stmt.execute(createDBTables);
 
     }
+
+    private String separateWithComas(List<String> columns, String column){
+        if(!columns.get(columns.size() - 1).equals(column)){
+            return column.concat(", ");
+        }
+        return column;
+    }
     private static boolean isNumeric(String str){
         return str != null && str.matches("[0-9.]+");
     }
@@ -39,14 +47,7 @@ public class DBConnection {
 
     public DBConnection values (List<String> columns, List<String> values){
         this.statement = this.statement.concat("(");
-        columns.forEach(column -> {
-            if(columns.get(columns.size() - 1).equals(column)){
-                this.statement = this.statement.concat(column);
-            }else {
-                this.statement = this.statement.concat(column).concat(", ");
-            }
-        }
-        );
+        columns.forEach(column -> statement = statement.concat(separateWithComas(columns,column)));
         this.statement = this.statement.concat(") VALUES (");
 
         values.forEach(value -> {
@@ -66,14 +67,7 @@ public class DBConnection {
 
     public DBConnection select(List<String> columns) {
         statement = statement.concat("SELECT ");
-        columns.forEach(column -> {
-                    if(columns.get(columns.size() - 1).equals(column)){
-                        statement = statement.concat(column).concat(" ");
-                    }else {
-                        statement = statement.concat(column).concat(", ");
-                    }
-                }
-        );
+        columns.forEach(column -> statement = statement.concat(separateWithComas(columns,column)));
         return this;
     }
 
@@ -88,17 +82,15 @@ public class DBConnection {
     }
 
     public DBConnection set(Map<String,String> columnsAndValuesToUpdate){
-        final String[] setValues = {""};
+        statement = statement.concat("SET ");
+
+        List<String> columnsToUpdate = new ArrayList<>();
 
         columnsAndValuesToUpdate
-            .forEach((column,valueToUpdate) -> setValues[0] = setValues[0]
-                    .concat(column)
-                    .concat("=")
-                    .concat(valueToUpdate)
-                    .concat(" "));
+            .forEach((column,valueToUpdate) -> columnsToUpdate.add(column+"="+valueToUpdate));
 
-        setValues[0] = setValues[0].replace(" ", ",");
-        statement = statement.concat(setValues[0]);
+        columnsToUpdate.forEach(column -> statement = statement.concat(separateWithComas(columnsToUpdate,column)));
+
         return this;
     }
 

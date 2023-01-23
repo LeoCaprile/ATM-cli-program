@@ -6,9 +6,7 @@ import User.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class UserServices {
     DBConnection DB;
@@ -40,7 +38,11 @@ public class UserServices {
 
     }
 
-    public void UpdateUserById(Integer userId) {
-        DB
+    public void UpdateUserMoneyById(Integer userId, String money) throws SQLException {
+        Map<String,String> valuesToUpdate = new HashMap<>();
+
+        valuesToUpdate.put("money", money);
+
+        DB.update("users").set(valuesToUpdate).where(" userId = "+userId).executeUpdate();
     }
 }
