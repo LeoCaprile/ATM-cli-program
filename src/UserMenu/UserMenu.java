@@ -1,5 +1,6 @@
 package UserMenu;
 
+import LoginAndRegister.Menu;
 import Services.UserServices;
 import User.User;
 import Utilities.Utilities;
@@ -29,14 +30,26 @@ public class UserMenu {
                 case "1" -> {
                     utils.print("ENTER THE QUANTITY OF MONEY YOU WANT TO DEPOSIT");
                     String money = utils.getUserInput();
-                    userServices.UpdateUserMoneyById(user.userId,money);
+                    String totalOfMoney = String.valueOf((loggedUser.money+Integer.parseInt(money)));
+                    userServices.UpdateUserMoneyById(user.userId, totalOfMoney);
+                    loggedUser = userServices.GetUser(user.username);
                     utils.print("TRANSACTION CORRECT");
                 }
                 case "2" -> {
-                    utils.print("b");
+                    utils.print("ENTER THE QUANTITY OF MONEY YOU WANT TO WITHDRAW");
+                    String money = utils.getUserInput();
+                    String totalOfMoney = String.valueOf((loggedUser.money-Integer.parseInt(money)));
+                    userServices.UpdateUserMoneyById(user.userId, totalOfMoney);
+                    loggedUser = userServices.GetUser(user.username);
+                    utils.print("TRANSACTION CORRECT");
                 }
                 case "3" -> {
-                    utils.print("c");
+                   if(loggedUser != null){
+                       utils.print("-----------------YOUR BALANCE IS------------------");
+                       utils.print("--------------$"+loggedUser.money+"---------------");
+                       utils.print("--------------Press ENTER to go back--------------");
+                       utils.getUserInput();
+                   }
                 }
                 case "4" -> {
                     if (loggedUser != null) {
@@ -51,7 +64,8 @@ public class UserMenu {
                     }
                 }
                 case "5" -> {
-                    utils.print("d");
+                    logout = true;
+                    new Menu();
                 }
             }
         }

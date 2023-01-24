@@ -68,11 +68,12 @@ public class DBConnection {
     public DBConnection select(List<String> columns) {
         statement = statement.concat("SELECT ");
         columns.forEach(column -> statement = statement.concat(separateWithComas(columns,column)));
+        statement = statement.concat(" ");
         return this;
     }
 
     public DBConnection from(String table) {
-        statement = statement.concat("FROM ").concat(table);
+        statement = statement.concat(" FROM ").concat(table);
         return this;
     }
 

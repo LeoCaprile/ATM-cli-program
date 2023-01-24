@@ -20,7 +20,7 @@ public class UserServices {
     }
 
     public User GetUser(String userName) throws SQLException{
-        List<String> columnsToSelect = Arrays.asList("userId","username","password", "money", "created_on", "last_transaction");
+        List<String> columnsToSelect = Arrays.asList("userid","username","password", "money", "created_on", "last_transaction");
        try (Statement stmt = DB.select(columnsToSelect).from("users").where("username = '"+userName+"'").executeQuery()){
           ResultSet rs = stmt.getResultSet();
           User user = new User();
